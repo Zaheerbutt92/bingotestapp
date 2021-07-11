@@ -1,38 +1,42 @@
 .App {
+  font-family: sans-serif;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html {
+  font-size: 8px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media screen and (min-width: 320px) {
+  html {
+    font-size: calc(10px + 6 * ((100vw - 320px) / 740));
   }
 }
+@media screen and (min-width: 768px) {
+  html {
+    font-size: calc(16px + 6 * ((100vw - 768px) / 1024));
+  }
+}
+@media screen and (min-width: 1000px) {
+  html {
+    font-size: calc(16px + 6 * ((100vw - 1000px) / 1850));
+  }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  
 }
 
-.App-link {
-  color: #61dafb;
+
+.MuiBox-root {
+  width: 19%;
+float: left;
+height: calc((100vh - 3rem)/5);
+margin: 0.5%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.MuiGrid-container.MuiBox-root .MuiBox-root:first-child{
+  display: inline-block !important;
+  width: 100% !important;
+}
+#gameContainer .MuiBox-root:first-child{
+  display: inline-block !important;
+  width: 100% !important;
 }
