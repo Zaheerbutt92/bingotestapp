@@ -20,7 +20,6 @@ export default class BingoReward extends React.Component {
     this.isAnimationEnabled = false;
     this.animationInstance = null;
     this.intervalId = null;
-
     this.startAnimation();
   }
 
@@ -66,7 +65,19 @@ export default class BingoReward extends React.Component {
   componentWillUnmount() {
     this.isAnimationEnabled = false;
     this.intervalId && clearInterval(this.intervalId);
+
+    clearInterval(this.interval);
   }
+
+  updateCallback(val) {
+    this.props.callback(val);
+  }
+  componentDidMount() {
+    if(this.isAnimationEnabled)
+    {
+      this.interval = setInterval(() => this.updateCallback(false), 5000);
+    }
+   }
 
   getInstance = (instance) => {
     this.animationInstance = instance;
@@ -75,7 +86,7 @@ export default class BingoReward extends React.Component {
   render() {
     return (
       <div>
-        <ReactCanvasConfetti
+        <ReactCanvasConfetti 
           refConfetti={this.getInstance}
           style={canvasStyles}
         />
