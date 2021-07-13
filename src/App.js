@@ -57,21 +57,19 @@ function Item({ id, children, onToggle, isSet }) {
   }
 }
 
-
 const data = shuffle(BingoItemList).reduce(
   (data, value, index) => ({ ...data, [index]: value }),{}
 );
 
 export default function App() {
-  const [state, setState] = useState({ checked: {} });
+  const [state, setState] = useState({ checked: {12:true} });
   const [alreadyWon, setAlreadyWon] = useState({ wonBefore:[]});
 
   function isWon(checked){
     const range = [0, 1, 2, 3, 4];
     var newWon= false;
     
-    if(range.find(row => range.every(column => checked[row * 5 + column]))>=0)
-    {
+    if(range.find(row => range.every(column => checked[row * 5 + column]))>=0){
       var rowNo =  'row_'+range.find(row => range.every(column => checked[row * 5 + column]));
       if(alreadyWon.wonBefore.includes(rowNo)){
         setAlreadyWon(alreadyWon => {
@@ -130,7 +128,61 @@ export default function App() {
         };
       });
     }
-    
+
+
+    if(range.every(index => checked[index * 5 + index])){
+      var leftDiagnol  = 'leftDiagnol__'+range.every(index => checked[index * 5 + index]);
+      if(alreadyWon.wonBefore.includes(leftDiagnol)){
+        newWon =false;
+      }
+      else{
+        setAlreadyWon(alreadyWon => {
+          const wonBefore = [...alreadyWon.wonBefore, leftDiagnol];
+          return {
+            ...alreadyWon,
+            wonBefore
+          };
+        })
+        newWon =true;
+      }
+    }
+    else{
+
+      setAlreadyWon(alreadyWon => {
+        const wonBefore = [ ...alreadyWon.wonBefore ].filter(a => a.includes('leftDiagnol__'));
+        return {
+          ...alreadyWon,
+          wonBefore
+        };
+      });
+    }
+
+    if(range.every(index => checked[index * 5 + index])){
+      var rightDiagnol = 'leftDiagnol__'+range.every(index => checked[index * 5 + index]);
+      if(alreadyWon.wonBefore.includes(rightDiagnol)){
+        newWon =false;
+      }
+      else{
+        setAlreadyWon(alreadyWon => {
+          const wonBefore = [...alreadyWon.wonBefore, rightDiagnol];
+          return {
+            ...alreadyWon,
+            wonBefore
+          };
+        })
+        newWon =true;
+      }
+    }
+    else{
+
+      setAlreadyWon(alreadyWon => {
+        const wonBefore = [ ...alreadyWon.wonBefore ].filter(a => a.includes('leftDiagnol__'));
+        return {
+          ...alreadyWon,
+          wonBefore
+        };
+      });
+    }
 
     console.log('row_'+range.find(row => range.every(column => checked[row * 5 + column])))
     // console.log('column_'+range.find(column => range.every(row => checked[row * 5 + column])))
@@ -151,7 +203,7 @@ export default function App() {
   
   function toggle(id){
     setState(state => {
-      const checked = { ...state.checked, [id]: !state.checked[id] };
+      const checked = { ...state.checked, [id]: !state.checked[id],12:true };
       const won = isWon(checked);
       return {
         ...state,
@@ -183,7 +235,7 @@ export default function App() {
           isSet={!!state.checked[id]}
           onToggle={() => toggle(id)}
         >
-          <Typography id="aa" variant="p" justify="center" alignItems="center">
+          <Typography id={id} variant="p" justify="center" alignItems="center">
             {data[id]}
           </Typography>
         </Item>
