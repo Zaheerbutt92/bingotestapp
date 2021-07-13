@@ -157,8 +157,8 @@ export default function App() {
       });
     }
 
-    if(range.every(index => checked[index * 5 + index])){
-      var rightDiagnol = 'leftDiagnol__'+range.every(index => checked[index * 5 + index]);
+    if(range.every(index => checked[index * 5 + 4 - index])){
+      var rightDiagnol = 'leftDiagnol__'+range.every(index => checked[index * 5 + 4 - index]);
       if(alreadyWon.wonBefore.includes(rightDiagnol)){
         newWon =false;
       }
@@ -183,12 +183,6 @@ export default function App() {
         };
       });
     }
-
-    console.log('row_'+range.find(row => range.every(column => checked[row * 5 + column])))
-    // console.log('column_'+range.find(column => range.every(row => checked[row * 5 + column])))
-    // console.log('leftDiagnol_'+range.every(index => checked[index * 5 + index]))
-    // console.log('rightDiagnol_'+range.every(index => checked[index * 5 + 4 - index]))
-    console.log(alreadyWon)
     // return (
     //   undefined !==
     //     range.find(row => range.every(column => checked[row * 5 + column])) ||
